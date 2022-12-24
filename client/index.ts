@@ -1,6 +1,8 @@
 import { Client, GatewayIntentBits, REST, Routes } from "discord.js"
-import config from "./config.json"
+import config from "./config/bot_config.json"
 import commandBuilder from "./commandBuilder"
+import path from "node:path"
+import fs from "node:fs"
 
 const token = config.token
 const client_id = config.client_id
@@ -8,7 +10,8 @@ const client_id = config.client_id
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMessages
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.GuildMembers
     ]
 });
 
@@ -21,18 +24,19 @@ rest.put(Routes.applicationCommands(client_id), { body: commands }).then(() => {
     console.log("Slash commands loaded")
 })
 
-client.login(token).then(() => {
-    if (!client.user || !client.application) {
-        return;
+client.login(token)
+
+const eventsPath = path.join(__dirname, 'events');
+const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.ts')); // filters the files and only loads ones that end in ts
+
+for (const file of eventFiles) {
+    const filePath = path.join(eventsPath, file);
+    const event = require(filePath);
+    if (event.once) {
+        client.once(event.name, (...args) => event.run(...args));
+    } else {
+        client.on(event.name, (...args) => event.run(...args));
     }
-    console.log(`${client.user.tag} has logged in!`);
-});
+}
 
-client.on('interactionCreate', (interaction) => {
-    if (!interaction.isChatInputCommand()) return;
-
-    const file_name = interaction.commandName + ".ts";
-    const file = require(`./commands/${file_name}`)
-    file.main(interaction)
-});
 
