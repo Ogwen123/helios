@@ -2,6 +2,7 @@ import { CommandInteraction } from "discord.js"
 
 module.exports = {
     main(interaction: CommandInteraction) {
+        if (!interaction.isChatInputCommand()) return
         let value_1: string = interaction.options.get("value1")?.value as string
         let value_2: string = interaction.options.get("value2")?.value as string
 

@@ -15,5 +15,5 @@ export async function connectToDatabase() {
 
     collections.guildConfig = guildConfigCollection
 
-    console.log(`Successfully connected to database: ${db.databaseName} and collection: ${guildConfigCollection.collectionName}`);
+    //console.log(`Successfully connected to database: ${db.databaseName} and collection: ${guildConfigCollection.collectionName}`);
 }

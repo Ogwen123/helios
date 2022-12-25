@@ -11,10 +11,11 @@ module.exports = {
             const collection = (await collections.guildConfig?.find({ guildID: guildMember.guild?.id }).toArray());
             if (collection === undefined) return;
             const config = collection[0]
+            if (!config.doWelcomeMessage) return;
             channelID = config.welcomeChannel
             const channel = guildMember.guild.client.channels.cache.find(ch => ch.id === channelID);
             if (channel?.isTextBased()) {
-                channel.send(`Welcome ${guildMember.user.tag}`)
+                channel.send(`Welcome <@${guildMember.id}>`)
             }
         })
     }
