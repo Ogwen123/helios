@@ -8,6 +8,6 @@ module.exports = {
 
         const file_name = interaction.commandName + ".ts";
         const file = require(`../commands/${file_name}`)
-        file.main(interaction)
+        file.run(interaction)
     }
 }

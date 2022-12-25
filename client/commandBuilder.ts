@@ -1,6 +1,6 @@
 import { SlashCommandBuilder, PermissionFlagsBits, ChannelType } from "discord.js"
 
-//normal user commands
+// * NORMAL USER COMMANDS
 const mathsBuilder = new SlashCommandBuilder()
     .setName("maths")
     .setDescription("Will do maths for you.")
@@ -25,7 +25,7 @@ const mathsBuilder = new SlashCommandBuilder()
         .setRequired(true)
     );
 
-//admin commands
+// * ADMIN COMMANDS
 const welcomemessageBuilder = new SlashCommandBuilder()
     .setName("welcomemessage")
     .setDescription("Change the channel in which welcome messages are sent")
@@ -54,7 +54,7 @@ const welcomemessageBuilder = new SlashCommandBuilder()
     )
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 
-//dev commands
+//! DEV COMMANDS - REMOVE ONCE THEY ARE NO LONGER NEEDED
 const mongotestBuilder = new SlashCommandBuilder()
     .setName("mongotest")
     .setDescription("testing mongo, shouldn't be in prod, not that this bot will make it to prod")

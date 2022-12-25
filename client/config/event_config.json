@@ -1,0 +1,5 @@
+{
+    "guildCreate": {
+        "defaultWelcomeMessageChannel": "general"
+    }
+}

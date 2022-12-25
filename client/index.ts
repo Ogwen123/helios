@@ -1,3 +1,6 @@
+//TODO: add guild to database on join
+//TODO:
+
 import { Client, GatewayIntentBits, REST, Routes } from "discord.js"
 import config from "./config/bot_config.json"
 import commandBuilder from "./commandBuilder"

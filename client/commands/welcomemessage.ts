@@ -3,7 +3,7 @@ import { CommandInteraction, TextChannel } from "discord.js";
 import { Channel } from "diagnostics_channel";
 
 module.exports = {
-    main(interaction: CommandInteraction) {
+    run(interaction: CommandInteraction) {
         if (!interaction.isChatInputCommand()) return
         let channelID: string;
         connectToDatabase().then(async () => {
@@ -39,7 +39,7 @@ module.exports = {
                     })
                     break;
                 case "setchannel":
-                    const newChannelID = interaction.options.get("channel")?.value
+                    const newChannelID: string = interaction.options.get("channel")?.value as string
 
                     if (newChannelID === channelID) {
                         interaction.reply(`${channel?.name} is already the welcome channel.`)
@@ -51,7 +51,7 @@ module.exports = {
                             welcomeChannel: newChannelID
                         }
                     }).then(() => {
-                        interaction.reply(`Updated your welcome message channel to ${interaction.client.channels.cache.find(ch => ch.id === newChannelID) as TextChannel}.`)
+                        interaction.reply(`Updated your welcome message channel to ${interaction.client.channels.cache.get(newChannelID)}.`)
                     })
                     break;
                 default:
