@@ -1,6 +1,3 @@
-//TODO: add guild to database on join
-// * set general as the default welcome message channel
-
 import { collections, connectToDatabase } from "../database/services/database.service";
 import { Events, Guild, TextChannel } from "discord.js";
 import configFile from "../config/event_config.json"
@@ -12,13 +9,12 @@ module.exports = {
         const config = configFile.guildCreate
 
         connectToDatabase().then(async () => {
-
+            //*DATABASE HANDLING
             const existingGuildConfig = (await collections.guildConfig?.find({ guildID: guild?.id }).toArray());
-            console.log(existingGuildConfig)
-
             if (existingGuildConfig!.length > 0) {
-                // reset the guild in the data base if they are somehow
-                //in the database but the bot wasn't in the guild
+                //reset the guild in the database if they are somehow
+                //already in the database with out the bot being in 
+                //the guild, this shouldn't happen but you never know
                 await collections.guildConfig?.updateOne({ guildID: guild?.id }, {
                     $set: {
                         welcomeChannel: "",

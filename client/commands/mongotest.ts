@@ -3,7 +3,7 @@ import { connectToDatabase, collections } from "../database/services/database.se
 
 
 module.exports = {
-    async run(interaction: CommandInteraction) {
+    run(interaction: CommandInteraction) {
         if (!interaction.isChatInputCommand()) return
         let channelID: string;
         connectToDatabase().then(async () => {
