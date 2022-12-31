@@ -12,7 +12,6 @@ module.exports = {
             const config = collection[0]
             if (!config.doWelcomeMessage) interaction.reply("welcome messages are turned off")
             channelID = config.welcomeChannel
-            //const channel = interaction.client.channels.cache.find(ch => ch.id === channelID);
 
             interaction.reply(channelID)
         })

@@ -1,4 +1,4 @@
-import { Client, Events, GuildMember, TextChannel } from "discord.js"
+import { Events, GuildMember, TextChannel } from "discord.js"
 import { connectToDatabase, collections } from "../database/services/database.service"
 
 module.exports = {
@@ -17,7 +17,7 @@ module.exports = {
 
             const channel = guildMember.guild.client.channels.cache.get(channelID);
 
-            if (channelID === "" && doWelcomeMessage === false) {
+            if (channelID === "" && doWelcomeMessage === true) {
                 const tempChannel: TextChannel = guildMember.client.channels.cache.find(channel => (channel as TextChannel).name === config.defaultWelcomeMessageChannel) as TextChannel
                 tempChannel.send("You do not have a welcome channel set but you have welcoming turned on.\nEither turn of welcoming with \`/welcomemessage dowelcomemessage False\`\nOr set a welcome channel with \`/welcomemessage setchannel <channel id>\`")
             }

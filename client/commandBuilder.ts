@@ -52,20 +52,53 @@ const welcomemessageBuilder = new SlashCommandBuilder()
         .setName("query")
         .setDescription("Check which channel welcome message will be sent in.")
     )
-    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator);
+
+const kickBuilder = new SlashCommandBuilder()
+    .setName("kick")
+    .setDescription("Kick specified user.")
+    .addUserOption((option) => option
+        .setName("user")
+        .setDescription("The user you want to kick.")
+        .setRequired(true)
+    )
+    .addStringOption((option) => option
+        .setName("reason")
+        .setDescription("The reason for kicking the user (optional) .")
+    )
+    .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
+
+const banBuilder = new SlashCommandBuilder()
+    .setName("ban")
+    .setDescription("Ban specified user.")
+    .addUserOption((option) => option
+        .setName("user")
+        .setDescription("The user you want to ban.")
+        .setRequired(true)
+    )
+    .addStringOption((option) => option
+        .setName("reason")
+        .setDescription("The reason for banning the user (optional) .")
+    )
+    .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
+
 
 //! DEV COMMANDS - REMOVE ONCE THEY ARE NO LONGER NEEDED
-const mongotestBuilder = new SlashCommandBuilder()
-    .setName("mongotest")
-    .setDescription("testing mongo, shouldn't be in prod, not that this bot will make it to prod")
+// const mongotestBuilder = new SlashCommandBuilder()
+//     .setName("mongotest")
+//     .setDescription("testing mongo, shouldn't be in prod, not that this bot will make it to prod");
 
 //convert to json format
 const mathsCommand = mathsBuilder.toJSON()
-const mongotestCommand = mongotestBuilder.toJSON()
+// const mongotestCommand = mongotestBuilder.toJSON()
 const welcomemessageCommand = welcomemessageBuilder.toJSON()
+const kickCommand = kickBuilder.toJSON()
+const banCommand = banBuilder.toJSON()
 
 export default [
     mathsCommand,
-    mongotestCommand,
-    welcomemessageCommand
+//     mongotestCommand,
+    welcomemessageCommand,
+    kickCommand,
+    banCommand
 ]
