@@ -82,7 +82,15 @@ const banBuilder = new SlashCommandBuilder()
     )
     .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
 
-
+// * MY COMMANDS
+const evalBuilder = new SlashCommandBuilder()
+    .setName("eval")
+    .setDescription("Eval command")
+    .addStringOption((option) => option
+        .setName("code")
+        .setDescription("The code you want to eval.")
+    )
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 //! DEV COMMANDS - REMOVE ONCE THEY ARE NO LONGER NEEDED
 // const mongotestBuilder = new SlashCommandBuilder()
 //     .setName("mongotest")
@@ -94,11 +102,13 @@ const mathsCommand = mathsBuilder.toJSON()
 const welcomemessageCommand = welcomemessageBuilder.toJSON()
 const kickCommand = kickBuilder.toJSON()
 const banCommand = banBuilder.toJSON()
+const evalCommand = evalBuilder.toJSON()
 
 export default [
     mathsCommand,
-//     mongotestCommand,
+    //     mongotestCommand,
     welcomemessageCommand,
     kickCommand,
-    banCommand
+    banCommand,
+    evalCommand
 ]
