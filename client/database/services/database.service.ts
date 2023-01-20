@@ -1,11 +1,12 @@
 import * as mongoDB from "mongodb";
+import SD from "../../config/database.config"
 import config from "../../config/db_config.json"
 
 export const collections: { guildConfig?: mongoDB.Collection } = {}
 
 //connect to database
 export async function connectToDatabase() {
-    const client: mongoDB.MongoClient = new mongoDB.MongoClient(config.db_connection_string)
+    const client: mongoDB.MongoClient = new mongoDB.MongoClient(<string>SD.connectionString)
 
     await client.connect()
 

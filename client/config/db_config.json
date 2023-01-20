@@ -1,5 +1,4 @@
 {
-    "db_connection_string": "mongodb+srv://utils-bot-2:x8itPiCj1SeM1H36@cluster0.etsgupw.mongodb.net/?retryWrites=true&w=majority",
     "db_name": "utils-bot-2",
     "collection_name": "GuildConfigs"
 }

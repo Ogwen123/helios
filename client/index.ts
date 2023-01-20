@@ -2,13 +2,13 @@
 //TODO:
 
 import { Client, GatewayIntentBits, REST, Routes } from "discord.js"
-import config from "./config/bot_config.json"
+import SD from "./config/database.config"
 import commandBuilder from "./commandBuilder"
 import path from "node:path"
 import fs from "node:fs"
 
-const token = config.token
-const client_id = config.client_id
+const token: string = <string>SD.token
+const client_id: string = <string>SD.clientID
 
 const client = new Client({
     intents: [
