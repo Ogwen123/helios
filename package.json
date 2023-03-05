@@ -6,7 +6,8 @@
     "yarn": "^1.22.19"
   },
   "scripts": {
-    "dev": "nodemon client/index.ts"
+    "dev": "nodemon client/index.ts",
+    "start": "node client/index.ts"
   },
   "devDependencies": {
     "@types/node": "^18.11.17",
