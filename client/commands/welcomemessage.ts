@@ -1,12 +1,11 @@
-import { collections, connectToDatabase } from "../database/services/database.service";
+import { connectToDatabase } from "../utils/database/services/database.service";
 import { CommandInteraction, TextChannel } from "discord.js";
-import { Channel } from "diagnostics_channel";
 
 module.exports = {
     run(interaction: CommandInteraction) {
         if (!interaction.isChatInputCommand()) return
         let channelID: string;
-        connectToDatabase().then(async () => {
+        connectToDatabase().then(async (collections) => {
             const collectionArray = (await collections.guildConfig?.find({ guildID: interaction.guild?.id }).toArray());
             if (collectionArray === undefined) return;
             const config = collectionArray[0]
@@ -14,7 +13,11 @@ module.exports = {
             const channel: TextChannel = interaction.client.channels.cache.find(ch => ch.id === channelID) as TextChannel;
             switch (interaction.options.getSubcommand()) {
                 case "query":
-                    interaction.reply(`The current welcome message channel is ${channel}`)
+                    if (config.doWelcomeMessafe === true) {
+                        interaction.reply(`The current welcome message channel is ${channel}`)
+                    } else {
+                        interaction.reply("Welcome messages are currently turned off.")
+                    }
                     break;
                 case "dowelcomemessage":
                     const bool: boolean = interaction.options.get("boolean")?.value as boolean //will always be a boolean because the option is a booleanOption
@@ -56,8 +59,6 @@ module.exports = {
                     break;
                 default:
                     interaction.reply("Something went very wrong.")
-
-
             }
         })
     }

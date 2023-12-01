@@ -1,4 +1,4 @@
-import { collections, connectToDatabase } from "../database/services/database.service";
+import { connectToDatabase } from "../utils/database/services/database.service";
 import { Events, Guild } from "discord.js";
 
 module.exports = {
@@ -6,7 +6,7 @@ module.exports = {
     once: false,
     run(guild: Guild) {
         //*DATABASE HANDLING
-        connectToDatabase().then(async () => {
+        connectToDatabase().then(async (collections) => {
             const existingGuildConfig = (await collections.guildConfig?.find({ guildID: guild?.id }).toArray());
 
             if (existingGuildConfig!.length === 0) { // handles the guild not being in the database
@@ -18,7 +18,13 @@ module.exports = {
                 return
             }
 
-            await collections.guildConfig?.deleteOne({ guildID: guild?.id }).then(() => {
+            await collections.guildConfig?.updateOne({ guildID: guild?.id }, {
+                $set: {
+                    welcomeChannel: "",
+                    doWelcomeMessage: false,
+                    active: true
+                }
+            }).then(() => {
                 console.log(`Removed/left guild ${guild?.name} (${guild?.id})`)
             })
         })

@@ -1,0 +1,13 @@
+{
+    "logging": {
+        "info": {
+            "colour": "#27ae60"
+        },
+        "warning": {
+            "colour": "#e67e22"
+        },
+        "danger": {
+            "colour": "#c0392b"
+        }
+    }
+}

@@ -1,11 +1,13 @@
 import * as mongoDB from "mongodb";
-import SD from "../../config/database.config"
-import config from "../../config/db_config.json"
+import SD from "../../../config/database.config"
+import config from "../../../config/db_config.json"
 
-export const collections: { guildConfig?: mongoDB.Collection } = {}
+type Collections = { guildConfig?: mongoDB.Collection }
+
+export const collections: Collections = {}
 
 //connect to database
-export async function connectToDatabase() {
+export async function connectToDatabase(): Promise<Collections> {
     const client: mongoDB.MongoClient = new mongoDB.MongoClient(<string>SD.connectionString)
 
     await client.connect()
@@ -16,5 +18,6 @@ export async function connectToDatabase() {
 
     collections.guildConfig = guildConfigCollection
 
+    return collections
     //console.log(`Successfully connected to database: ${db.databaseName} and collection: ${guildConfigCollection.collectionName}`);
 }

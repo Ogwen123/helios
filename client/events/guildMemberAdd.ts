@@ -1,5 +1,5 @@
 import { Events, GuildMember, TextChannel } from "discord.js"
-import { connectToDatabase, collections } from "../database/services/database.service"
+import { connectToDatabase } from "../utils/database/services/database.service"
 
 module.exports = {
     name: Events.GuildMemberAdd,
@@ -7,10 +7,11 @@ module.exports = {
     async run(guildMember: GuildMember) {
 
         let channelID: string;
-        connectToDatabase().then(async () => {
+        connectToDatabase().then(async (collections) => {
             const collection = (await collections.guildConfig?.find({ guildID: guildMember.guild?.id }).toArray());
             if (collection === undefined) return;
             const config = collection[0]
+
             const doWelcomeMessage = config.doWelcomeMessage
             if (doWelcomeMessage) return;
             channelID = config.welcomeChannel

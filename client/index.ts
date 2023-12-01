@@ -6,9 +6,12 @@ import SD from "./config/database.config"
 import commandBuilder from "./commandBuilder"
 import path from "node:path"
 import fs from "node:fs"
+import { Logger } from "./utils/logger"
 
 const token: string = <string>SD.token
 const client_id: string = <string>SD.clientID
+
+export const logger = new Logger("HELIOS")
 
 const client = new Client({
     intents: [
@@ -24,7 +27,7 @@ const commands = commandBuilder
 const rest = new REST({ version: '10' }).setToken(token);
 
 rest.put(Routes.applicationCommands(client_id), { body: commands }).then(() => {
-    console.log("Slash commands loaded")
+    logger.info("Slash commands loaded")
 })
 
 client.login(token)
@@ -41,5 +44,6 @@ for (const file of eventFiles) {
         client.on(event.name, (...args) => event.run(...args));
     }
 }
+logger.info("Event handler loaded.")
 
 
